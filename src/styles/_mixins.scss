@@ -1,0 +1,21 @@
+@use "variables" as v;
+
+@mixin transition($x...){
+  -webkit-transition: $x;
+  -moz-transition: $x;
+  -ms-transition: $x;
+  -o-transition: $x;
+  transition: $x;
+}
+
+@mixin respond-to($breakpoint) {
+  @if map-has-key(v.$breakpoints, $breakpoint) {
+    @media #{inspect(map-get(v.$breakpoints, $breakpoint))} {
+      @content;
+    }
+  }
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Available breakpoints are: #{map-keys(v.$breakpoints)}.";
+  }
+}
