@@ -1,4 +1,4 @@
-// Импорт пакетов
+// Packages import
 const gulp = require('gulp')
 const less = require('gulp-less')
 const stylus = require('gulp-stylus')
@@ -20,7 +20,7 @@ const newer = require('gulp-newer')
 const browsersync = require('browser-sync').create()
 const del = require('del')
 
-// Пути исходных файлов src и пути к результирующим файлам dest
+// Paths of source files src and paths to resulting files dest
 const paths = {
   html: {
     src: ['src/*.html', 'src/*.pug'],
@@ -40,12 +40,12 @@ const paths = {
   }
 }
 
-// Очистить каталог dist, удалить все кроме изображений
+// Empty dist directory, remove everything except images
 function clean() {
   return del(['dist/*', '!dist/img'])
 }
 
-// Обработка html и pug
+// Html and pug processing
 function html() {
   return gulp.src(paths.html.src)
   //.pipe(gulppug())
@@ -57,7 +57,7 @@ function html() {
   .pipe(browsersync.stream())
 }
 
-// Обработка препроцессоров стилей
+// Handling Style Preprocessors
 function styles() {
   return gulp.src(paths.styles.src)
   .pipe(sourcemaps.init())
@@ -82,7 +82,7 @@ function styles() {
   .pipe(browsersync.stream())
 }
 
-// Обработка Java Script, Type Script и Coffee Script
+// Handling Javascript, Typescript and Coffeescript
 function scripts() {
   return gulp.src(paths.scripts.src)
   .pipe(sourcemaps.init())
@@ -106,7 +106,7 @@ function scripts() {
   .pipe(browsersync.stream())
 }
 
-// Сжатие изображений
+// Image Compression
 function img() {
   return gulp.src(paths.images.src)
   .pipe(newer(paths.images.dest))
@@ -119,7 +119,7 @@ function img() {
   .pipe(gulp.dest(paths.images.dest))
 }
 
-// Отслеживание изменений в файлах и запуск лайв сервера
+// Track changes in files and launch a live server
 function watch() {
   browsersync.init({
     server: {
@@ -133,7 +133,7 @@ function watch() {
   gulp.watch(paths.images.src, img)
 }
 
-// Таски для ручного запуска с помощью gulp clean, gulp html и т.д.
+// Tasks for manually running gulp clean, gulp html, etc.
 exports.clean = clean
 
 exports.html = html
@@ -142,5 +142,5 @@ exports.scripts = scripts
 exports.img = img
 exports.watch = watch
 
-// Таск, который выполняется по команде gulp
+// The task that is executed by the gulp command
 exports.default = gulp.series(clean, html, gulp.parallel(styles, scripts, img), watch)
