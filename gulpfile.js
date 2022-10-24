@@ -37,6 +37,10 @@ const paths = {
   images: {
     src: 'src/img/**',
     dest: 'dist/img/'
+  },
+  fonts: {
+    src: 'src/font/**',
+    dest: 'dist/font/'
   }
 }
 
@@ -119,6 +123,11 @@ function img() {
   .pipe(gulp.dest(paths.images.dest))
 }
 
+function font() {
+	return gulp.src(paths.fonts.src)
+	.pipe(gulp.dest(paths.fonts.dest))
+  }
+
 // Track changes in files and launch a live server
 function watch() {
   browsersync.init({
@@ -131,6 +140,7 @@ function watch() {
   gulp.watch(paths.styles.src, styles)
   gulp.watch(paths.scripts.src, scripts)
   gulp.watch(paths.images.src, img)
+  gulp.watch(paths.fonts.src, font)
 }
 
 // Tasks for manually running gulp clean, gulp html, etc.
@@ -140,7 +150,8 @@ exports.html = html
 exports.styles = styles
 exports.scripts = scripts
 exports.img = img
+exports.font = font
 exports.watch = watch
 
 // The task that is executed by the gulp command
-exports.default = gulp.series(clean, html, gulp.parallel(styles, scripts, img), watch)
+exports.default = gulp.series(clean, html, gulp.parallel(styles, scripts, img, font), watch)
