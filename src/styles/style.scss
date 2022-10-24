@@ -35,6 +35,7 @@
 	max-width: 270px;
 	max-height: 180px;
 	cursor: pointer;
+	user-select: none;
 
 	&__name {
 		font-size: 96px;
@@ -71,4 +72,48 @@
 	&.yellow {
 		fill: v.$yellow-color;
 	}
+}
+
+.hide-block {
+	display: none;
+}
+
+.game {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	&__container {
+		margin: 360px 0 100px 0;
+	}
+}
+
+.panel {
+	margin-top: 40px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	max-width: 1025px;
+	width: 100%;
+
+	p {
+		font-size: 36px;
+	}
+}
+
+.button_goback {
+	font-size: 36px;
+	padding: 5px 42px;
+	color: v.$background-dark-color;
+	border-radius: 100px;
+	border: 5px solid v.$background-dark-color;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.card {
+	width: 210px;
+	height: 130px;
+	border-radius: 30px;
+	
 }
