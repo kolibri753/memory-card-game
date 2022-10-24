@@ -1,2 +1,74 @@
 @forward 'typography';
 @forward 'layout';
+@use "variables" as v;
+
+.levels {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	&__description {
+		font-size: 32px;
+		color: v.$black-color;
+		margin: 25px 0 30px 0;
+		text-align: center;
+	}
+
+	&__block {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		grid-template-rows: repeat(3, 1fr);
+		grid-column-gap: 80px;
+		grid-row-gap: 80px; 
+		width: 73%;
+		height: 65%;
+		margin: 50px 0 100px 0;
+	}
+}
+
+.level {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border-radius: 30px;
+	background-color: v.$background-light-color;
+	max-width: 270px;
+	max-height: 180px;
+	cursor: pointer;
+
+	&__name {
+		font-size: 96px;
+		color: v.$white-color;
+		min-height: 75px;
+		margin: 20px 25px 0 25px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		span {
+			font-size: 56px;
+			margin: 0 40px;
+		}
+	}
+
+	&__stars {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		margin: 15px 0 10px 0;
+	}
+
+}
+
+.star-icon {
+	display: block;
+	width: 60px;
+	height: 60px;
+	fill: v.$black-color;
+	margin: 0 3px;
+
+	&.yellow {
+		fill: v.$yellow-color;
+	}
+}

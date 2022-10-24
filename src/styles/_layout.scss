@@ -1,3 +1,41 @@
 @use "variables" as v;
 @use "mixins" as m;
 
+body {
+	background-color: v.$background-white;
+}
+
+.header {
+	&__background {
+		background-color: v.$background-dark-color;
+		text-align: center;
+		padding: 22px;
+		height: 120px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&__title {
+		display: block;
+		font-size: 64px;
+		color: v.$white-color;
+	}
+}
+
+main {
+	height: 100%;
+}
+
+.footer {
+	&__background {
+		background-color: v.$background-dark-color;
+		text-align: center;
+		padding: 10px;
+	}
+
+	&__copyright {
+		font-size: 16px;
+		color: v.$white-color;
+	}
+}

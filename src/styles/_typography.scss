@@ -47,3 +47,30 @@ i {
 
   @include m.transition(all 0.3s ease-in-out);
 }
+
+@font-face {
+	font-family: Inter-Regular;
+	src: url(./../font/Inter-Regular.ttf);
+}
+
+@font-face {
+	font-family: Inter-Medium;
+	src: url(./../font/Inter-Medium.ttf);
+}
+
+@font-face {
+	font-family: Inter-Bold;
+	src: url(./../font/Inter-Bold.ttf);
+}
+
+.main-font_regular {
+	font-family: Inter-Regular, sans-serif;
+}
+
+.main-font_medium {
+	font-family: Inter-Medium, sans-serif;
+}
+
+.main-font_bold {
+	font-family: Inter-Bold, sans-serif;
+}
