@@ -30,7 +30,7 @@
 		</header>
 		<main>
 			<div class="main__container">
-				<div class="levels hide-block" id="levels-container">
+				<div class="levels" id="levels-container">
 					<p class="levels__description">Choose level and become smarter while playing!</p>
 					<div class="levels__block">
 						<div class="level" id="level" data-level="22">
@@ -131,16 +131,21 @@
 						</div>
 					</div>
 				</div>
-				<div class="game" id="game">
+				<div class="game hide-block" id="game">
 					<div class="panel">
 						<p class="main-font_regular">Moves: <span id="stats-moves">0</span></p>
 						<p class="main-font_regular">Time: <span id="stats-time">0:00</span></p>
 						<button class="button_goback main-font_bold" id="button-goback">GO BACK</button>
 					</div>
 					<div class="game__container" id="game-container">
-						<div class="card"><!-- try to style -->
-						
-						</div>
+						<!--<div class="card" id="card" data-open="false" data-value="36">
+							<div class="card__front main-font_medium">
+								<p>36</p>
+							</div>
+							<div class="card__back">
+								<p>photo 36</p>
+							</div>
+						</div>-->
 					</div>
 				</div>
 			</div>
@@ -150,6 +155,7 @@
 				<p class="footer__copyright main-font_regular">
 					© 2022 Vira Vakhovska, Viktor Vasylyk.  All rights reserved.
 				</p>
+				<a class="thanks" target="_blank" href="https://www.flaticon.com/free-stickers/animals" title="animals stickers link">Animals stickers created by Stickers - Flaticon</a>
 			</div>
 		</footer>
 	</body>
