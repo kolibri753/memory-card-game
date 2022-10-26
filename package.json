@@ -30,6 +30,7 @@
     "gulp-size": "^4.0.1",
     "gulp-sourcemaps": "^3.0.0",
     "gulp-stylus": "^2.7.0",
+    "gulp-svg-sprite": "^2.0.0",
     "gulp-typescript": "^6.0.0-alpha.1",
     "gulp-uglify": "^3.0.2",
     "sass": "^1.37.5",
