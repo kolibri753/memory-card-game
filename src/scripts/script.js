@@ -31,16 +31,17 @@ window.onload = function () {
 	let timer;
 
 	function toggle_game() {
+		steps = 0;
 		if (!game_toggle) {
 			game.classList.remove("hide-block");
 			levels_container.classList.add("hide-block");
 			game_toggle = true;
-			steps = 0;
 			date = new Date();
 			timer = setInterval(() => {
-				var diff_in_second = new Date().getSeconds() - date.getSeconds();
+				var diff_in_second = Math.floor((new Date().getTime() - date.getTime()) / 1000);
 				var seconds = diff_in_second % 60;
 				var minutes = (diff_in_second - seconds) / 60;
+				if (seconds < 10) seconds = "0" + seconds;
 				stats_time.innerText = minutes + ":" + seconds;
 			}, 1000);
 		}
@@ -118,6 +119,9 @@ window.onload = function () {
 
 	function clear_game() {
 		game_container.innerHTML = "";
+		stats_moves.innerText = "0";
+		clearInterval(timer);
+		stats_time.innerText = "0:0";
 	}
 
 	function add_event_to_card() {
