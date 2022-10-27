@@ -5,19 +5,34 @@ window.onload = function () {
 	let game = document.getElementById("game");
 	let game_container = document.getElementById("game-container");
 	let button_goback = document.getElementById("button-goback");
-	let stats_moves = document.getElementById("stats-moves");
-	let stats_time = document.getElementById("stats-time");
+	let stats_moves = document.querySelectorAll("#stats-moves");
+	let stats_time = document.querySelectorAll("#stats-time");
+	let level_modal = document.getElementById("curr-level");
+
+	let btnModalWindowClose = document.getElementById("modal-close");
+	let modalWindow = document.querySelector(".modal-overlay");
 
 	let card_clicked = [];
 	let steps;
 	let steps_to_finish;
 	let date;
+	
+	//modal window
+	function openModalWindow() {
+		modalWindow.classList.add("open-modal");
+	}
+	function closeModalWindow() {
+		modalWindow.classList.remove("open-modal");
+	}
+	btnModalWindowClose.addEventListener("click", closeModalWindow);
 
 	// level click event
-	for(let i = 0; i < levels.length; i++) {
+	for (let i = 0; i < levels.length; i++) {
 		let level = levels[i];
 		level.addEventListener("click", (event) => {
 			generate_game(event.currentTarget.getAttribute("data-level"));
+			let data_level = event.currentTarget.getAttribute("data-level");
+			level_modal.innerText = data_level[0] + " ✖ " + data_level[1];
 			toggle_game();
 		});
 	}
@@ -38,14 +53,17 @@ window.onload = function () {
 			game_toggle = true;
 			date = new Date();
 			timer = setInterval(() => {
-				var diff_in_second = Math.floor((new Date().getTime() - date.getTime()) / 1000);
+				var diff_in_second = Math.floor(
+					(new Date().getTime() - date.getTime()) / 1000
+				);
 				var seconds = diff_in_second % 60;
 				var minutes = (diff_in_second - seconds) / 60;
 				if (seconds < 10) seconds = "0" + seconds;
-				stats_time.innerText = minutes + ":" + seconds;
+				stats_time.forEach(element => {
+					element.innerText = minutes + ":" + seconds;
+				});
 			}, 1000);
-		}
-		else {
+		} else {
 			game.classList.add("hide-block");
 			levels_container.classList.remove("hide-block");
 			game_toggle = false;
@@ -72,11 +90,30 @@ window.onload = function () {
 		*/
 
 		// replace it with sprite in future !!!
-		let img_names = ["bear", "bison", "buffalo", "cow", "crocodile", "deer", "elephant", "flamingo", "fox", "giraffe", "hedgehog", "hippopotamus", "horse", "pig", "rabbit", "rhinoceros", "tiger", "zebra"];
+		let img_names = [
+			"bear",
+			"bison",
+			"buffalo",
+			"cow",
+			"crocodile",
+			"deer",
+			"elephant",
+			"flamingo",
+			"fox",
+			"giraffe",
+			"hedgehog",
+			"hippopotamus",
+			"horse",
+			"pig",
+			"rabbit",
+			"rhinoceros",
+			"tiger",
+			"zebra",
+		];
 		let base_src = "/img/cards/";
 		let ext = ".png";
 		let img_for_game = [];
-		
+
 		for (let i = 0; i < size / 2; i++) {
 			let random_name = img_names[Math.floor(Math.random() * img_names.length)];
 			img_names.splice(img_names.indexOf(random_name), 1);
@@ -99,7 +136,7 @@ window.onload = function () {
 			front.classList.add("card__front");
 			let desc = document.createElement("p");
 			desc.classList.add("main-font_medium");
-			desc.innerText = i+1;
+			desc.innerText = i + 1;
 			front.appendChild(desc);
 
 			let back = document.createElement("div");
@@ -121,16 +158,20 @@ window.onload = function () {
 
 	function clear_game() {
 		game_container.innerHTML = "";
-		stats_moves.innerText = "0";
+		stats_moves.forEach(element => {
+			element.innerText = "0";
+		});
 		clearInterval(timer);
-		stats_time.innerText = "0:0";
+		stats_time.forEach(element => {
+			element.innerText = "0:0";
+		});
 	}
 
 	function add_event_to_card() {
 		let cards = document.querySelectorAll("#card");
 
 		// card click event
-		for(let i = 0; i < cards.length; i++) {
+		for (let i = 0; i < cards.length; i++) {
 			let card = cards[i];
 			card.addEventListener("click", () => {
 				let is_active = card.classList.contains("active");
@@ -140,15 +181,17 @@ window.onload = function () {
 				// add class active
 				card.classList.add("active");
 				steps += 1;
-				stats_moves.innerText = steps;
+				stats_moves.forEach(element => {
+					element.innerText = steps;
+				});
 
 				// save card
 				card_clicked.push(card);
-				
+
 				// if two card -> compare
 				if (card_clicked.length == 2) {
 					compare_card();
-				}	
+				}
 			});
 		}
 	}
@@ -156,8 +199,8 @@ window.onload = function () {
 	function compare_card() {
 		let card1 = card_clicked[0];
 		let card2 = card_clicked[1];
-		let val1 = card1.getAttribute("data-value")
-		let val2 = card2.getAttribute("data-value")
+		let val1 = card1.getAttribute("data-value");
+		let val2 = card2.getAttribute("data-value");
 		// if equal -> set data-open="true"
 		if (val1 == val2) {
 			card1.setAttribute("data-open", "true");
@@ -166,8 +209,7 @@ window.onload = function () {
 			if (steps_to_finish == 0) {
 				win();
 			}
-		}
-		else {
+		} else {
 			setTimeout(() => {
 				card1.classList.remove("active");
 				card2.classList.remove("active");
@@ -178,7 +220,6 @@ window.onload = function () {
 
 	function win() {
 		clearInterval(timer);
-		alert("You win!");
+		openModalWindow();
 	}
-}
-
+};

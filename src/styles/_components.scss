@@ -1,7 +1,6 @@
 @use "variables" as v;
 @use "mixins" as m;
 
-
 .levels {
 	display: flex;
 	flex-direction: column;
@@ -61,7 +60,6 @@
 		align-items: center;
 		margin: 15px 0 10px 0;
 	}
-
 }
 
 .star-icon {
@@ -144,10 +142,19 @@ div.hide-block {
 	background-color: transparent;
 	cursor: pointer;
 
+	@include m.transition(all 0.3s ease-in-out);
+	transition-property: color, background-color;
+
+
 	@include m.respond-to("md") {
 		position: absolute;
-    top: 10px;
-    left: 10px;
+		top: 10px;
+		left: 10px;
+	}
+
+	&:hover {
+		background-color: v.$background-dark-color;
+		color: v.$white-color;
 	}
 }
 
@@ -158,12 +165,13 @@ div.hide-block {
 	border-radius: 30px;
 	position: relative;
 	transition: transform 0.8s;
-  	transform-style: preserve-3d;
+	transform-style: preserve-3d;
 	background-color: v.$background-light-color;
 	cursor: pointer;
 	user-select: none;
 
-	&__back, &__front {
+	&__back,
+	&__front {
 		position: absolute;
 		width: 100%;
 		height: 100%;
@@ -196,4 +204,100 @@ div.hide-block {
 			visibility: hidden;
 		}
 	}
+}
+
+.modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(120, 120, 120, 0.7);
+	display: grid;
+	place-items: center;
+	transition: var(--transition);
+	visibility: hidden;
+	z-index: -10;
+
+	.modal {
+		overflow: hidden;
+		min-width: 300px;
+		max-width: 600px;
+		width: 50%;
+		height: 550px;
+		background-color: v.$background-white;
+		border-radius: 42px 42px 62px 62px;
+		box-shadow: 1rem 1rem 1rem 1rem rgb(96 121 138 / 60%);
+
+		&__header {
+			display: flex;
+			justify-content: center;
+			padding: 20px;
+			background-color: v.$background-dark-color;
+			color: v.$white;
+
+			@include m.respond-to("md") {
+				padding: 10px;
+			}
+		}
+
+		&__star {
+			fill: #ffe600;
+			width: 100px;
+			height: 100px;
+		}
+
+		&__body {
+			padding: 20px;
+			border: 40px solid v.$background-dark-color;
+			border-top: none;
+			border-radius: 0 0 60px 60px;
+			height: 410px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			align-items: center;
+
+			@include m.respond-to("md") {
+				padding: 10px;
+				border-width: 20px;
+				height: 430px;
+			}
+		}
+
+		&__level {
+			font-size: 40px;
+			font-weight: 900;
+			text-transform: uppercase;
+
+			@include m.text-outline(v.$yellow-color);
+		}
+
+		&__text {
+			font-size: 30px;
+			font-weight: 400;
+			line-height: 30px;
+			text-align: center;
+			
+			span {
+				display: block;
+			}
+		}
+
+		&__stats {
+			font-size: 30px;
+			display: inline-flex;
+			width: 100%;
+			justify-content: space-between;
+		}
+
+		&__btn {
+			position: static;
+		}
+	}
+}
+
+.open-modal {
+	visibility: visible;
+	z-index: 10;
 }

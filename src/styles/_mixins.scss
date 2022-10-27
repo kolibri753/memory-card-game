@@ -8,6 +8,10 @@
   transition: $x;
 }
 
+@mixin text-outline($color) {
+  text-shadow: -1px -1px 0 $color, 1px -1px 0 $color, -1px 1px 0 $color, 1px 1px 0 $color;
+}
+
 @mixin respond-to($breakpoint) {
   @if map-has-key(v.$breakpoints, $breakpoint) {
     @media #{inspect(map-get(v.$breakpoints, $breakpoint))} {
