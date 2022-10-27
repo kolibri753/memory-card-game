@@ -1,0 +1,162 @@
+@use "variables" as v;
+@use "mixins" as m;
+
+.levels {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	&__description {
+		font-size: 32px;
+		color: v.$black-color;
+		margin: 25px 0 30px 0;
+		text-align: center;
+	}
+
+	&__block {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		grid-template-rows: repeat(3, 1fr);
+		grid-column-gap: 80px;
+		grid-row-gap: 80px; 
+		width: 73%;
+		height: 65%;
+		margin: 50px 0 100px 0;
+	}
+}
+
+.level {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border-radius: 30px;
+	background-color: v.$background-light-color;
+	max-width: 270px;
+	max-height: 180px;
+	cursor: pointer;
+	user-select: none;
+
+	&__name {
+		font-size: 96px;
+		color: v.$white-color;
+		min-height: 75px;
+		margin: 20px 25px 0 25px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		span {
+			font-size: 56px;
+			margin: 0 40px;
+		}
+	}
+
+	&__stars {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		margin: 15px 0 10px 0;
+	}
+
+}
+
+.star-icon {
+	display: block;
+	width: 60px;
+	height: 60px;
+	fill: v.$black-color;
+	margin: 0 3px;
+
+	&.yellow {
+		fill: v.$yellow-color;
+	}
+}
+
+div.hide-block {
+	display: none;
+}
+
+.game {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	&__container {
+		margin: 340px 0 80px 0;
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+}
+
+.panel {
+	margin-top: 40px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	max-width: 1025px;
+	width: 100%;
+	padding: 0px 30px;
+
+	p {
+		font-size: 36px;
+	}
+}
+
+.button_goback {
+	font-size: 36px;
+	padding: 5px 42px;
+	color: v.$background-dark-color;
+	border-radius: 100px;
+	border: 5px solid v.$background-dark-color;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.card {
+	width: 210px;
+	height: 130px;
+	margin: 20px 10px;
+	border-radius: 30px;
+	position: relative;
+	transition: transform 0.8s;
+  	transform-style: preserve-3d;
+	background-color: v.$background-light-color;
+	cursor: pointer;
+	user-select: none;
+
+	&__back, &__front {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		-webkit-backface-visibility: hidden; /* Safari */
+		backface-visibility: hidden;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 10px;
+	}
+
+	&__front p {
+		color: v.$white-color;
+		font-size: 96px;
+	}
+
+	&__back {
+		transform: rotateY(180deg);
+		overflow: hidden;
+
+		img {
+			height: 100%;
+		}
+	}
+
+	&.active {
+		transform: rotateY(180deg);
+
+		.card__front p {
+			visibility: hidden;
+		}
+	}
+}
