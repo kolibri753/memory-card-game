@@ -54,10 +54,11 @@ window.onload = function () {
 	}
 
 	function generate_game(levels) {
-		let row_size = levels % 10;
-		let column = (levels - row_size) / 10;
-		game_container.setAttribute("data-columns", column);
-		let size = column * row_size;
+		let column_size = levels % 10;
+		let row_size = (levels - column_size) / 10;
+		game_container.setAttribute("data-columns", column_size);
+		console.log(row_size, column_size);
+		let size = row_size * column_size;
 		steps_to_finish = size;
 		/* create card template *
 			<div class="card" id="card" data-open="false" data-value="36">
