@@ -19,3 +19,7 @@
         + "Available breakpoints are: #{map-keys(v.$breakpoints)}.";
   }
 }
+
+@mixin grid-layout($columns){
+  grid-template-columns: repeat($columns, 1fr);
+}
