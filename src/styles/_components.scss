@@ -133,17 +133,48 @@ div.hide-block {
 	}
 }
 
-.button_goback {
+.btn {
 	font-size: 36px;
-	padding: 5px 42px;
-	color: v.$background-dark-color;
-	border-radius: 100px;
 	border: 5px solid v.$background-dark-color;
-	background-color: transparent;
+	padding: 5px;
+	border-radius: 30px;
+	color: v.$background-dark-color;
 	cursor: pointer;
 
 	@include m.transition(all 0.3s ease-in-out);
 	transition-property: color, background-color;
+
+	&:hover {
+		background-color: v.$background-dark-color;
+		color: v.$white-color;
+
+		i {
+			color: v.$background-white;
+		}
+	}
+
+	i {
+		color: v.$background-dark-color;
+	}
+}
+
+.button_share {
+	font-size: 27px;
+	border-radius: 15px;
+	
+}
+
+.button_goback {
+	// font-size: 36px;
+	padding: 5px 42px;
+	// color: v.$background-dark-color;
+	// border-radius: 100px;
+	// border: 5px solid v.$background-dark-color;
+	// background-color: transparent;
+	// cursor: pointer;
+
+	// @include m.transition(all 0.3s ease-in-out);
+	// transition-property: color, background-color;
 
 
 	@include m.respond-to("md") {
@@ -152,10 +183,10 @@ div.hide-block {
 		left: 10px;
 	}
 
-	&:hover {
-		background-color: v.$background-dark-color;
-		color: v.$white-color;
-	}
+	// &:hover {
+	// 	background-color: v.$background-dark-color;
+	// 	color: v.$white-color;
+	// }
 }
 
 .card {
@@ -293,6 +324,14 @@ div.hide-block {
 
 		&__btn {
 			position: static;
+		}
+
+		&__buttons {
+			display: flex;
+			flex-wrap: wrap-reverse;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
 		}
 	}
 }

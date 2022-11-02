@@ -8,6 +8,7 @@ window.onload = function () {
 	let stats_moves = document.querySelectorAll("#stats-moves");
 	let stats_time = document.querySelectorAll("#stats-time");
 	let level_modal = document.getElementById("curr-level");
+	let button_share = document.getElementById("share-btn");
 
 	let btnModalWindowClose = document.getElementById("modal-close");
 	let modalWindow = document.querySelector(".modal-overlay");
@@ -16,7 +17,7 @@ window.onload = function () {
 	let steps;
 	let steps_to_finish;
 	let date;
-	
+
 	//modal window
 	function openModalWindow() {
 		modalWindow.classList.add("open-modal");
@@ -25,6 +26,21 @@ window.onload = function () {
 		modalWindow.classList.remove("open-modal");
 	}
 	btnModalWindowClose.addEventListener("click", closeModalWindow);
+
+	const shareData = {
+		title: "Can you beat me?",
+		text: `I did it only using ${steps} moves and my time is ${stats_time[0].innerText}`,
+		url: "https://memory-improving-card-game.netlify.app/",
+	};
+
+	button_share.addEventListener("click", async () => {
+		try {
+			await navigator.share(shareData);
+			console.log("MDN shared successfully");
+		} catch (err) {
+			console.log(err);
+		}
+	});
 
 	// level click event
 	for (let i = 0; i < levels.length; i++) {
@@ -59,7 +75,7 @@ window.onload = function () {
 				var seconds = diff_in_second % 60;
 				var minutes = (diff_in_second - seconds) / 60;
 				if (seconds < 10) seconds = "0" + seconds;
-				stats_time.forEach(element => {
+				stats_time.forEach((element) => {
 					element.innerText = minutes + ":" + seconds;
 				});
 			}, 1000);
@@ -158,11 +174,11 @@ window.onload = function () {
 
 	function clear_game() {
 		game_container.innerHTML = "";
-		stats_moves.forEach(element => {
+		stats_moves.forEach((element) => {
 			element.innerText = "0";
 		});
 		clearInterval(timer);
-		stats_time.forEach(element => {
+		stats_time.forEach((element) => {
 			element.innerText = "0:0";
 		});
 	}
@@ -181,7 +197,7 @@ window.onload = function () {
 				// add class active
 				card.classList.add("active");
 				steps += 1;
-				stats_moves.forEach(element => {
+				stats_moves.forEach((element) => {
 					element.innerText = steps;
 				});
 
