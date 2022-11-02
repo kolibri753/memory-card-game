@@ -227,8 +227,14 @@ window.onload = function () {
 			}
 		} else {
 			setTimeout(() => {
+				card1.classList.add("animated");
 				card1.classList.remove("active");
+				card2.classList.add("animated");
 				card2.classList.remove("active");
+				setTimeout(() => {
+					card1.classList.remove("animated");
+					card2.classList.remove("animated");
+				}, 1600);
 			}, 1000);
 		}
 		card_clicked = [];

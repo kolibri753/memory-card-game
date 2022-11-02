@@ -217,7 +217,7 @@ div.hide-block {
 	&__front p {
 		color: v.$white-color;
 		font-size: 96px;
-	}
+}
 
 	&__back {
 		transform: rotateY(180deg);
@@ -228,12 +228,29 @@ div.hide-block {
 		}
 	}
 
+	&.animated {
+		.card__front p {
+			opacity: 0;
+			animation: 0.8s shown-card-after 0.8s;
+		}
+	}
+
 	&.active {
 		transform: rotateY(180deg);
 
 		.card__front p {
 			visibility: hidden;
 		}
+	}
+}
+
+@keyframes shown-card-after {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
 	}
 }
 
