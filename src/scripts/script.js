@@ -12,14 +12,27 @@ window.onload = function () {
 
 	let btnModalWindowClose = document.getElementById("modal-close");
 	let modalWindow = document.querySelector(".modal-overlay");
+	let modalStars = document.querySelectorAll(".modal__star");
 
 	let card_clicked = [];
 	let steps;
 	let steps_to_finish;
 	let date;
+	let current_level;
+	let current_size
+	let current_star_stats;
+
+	updateStarStats();
 
 	//modal window
 	function openModalWindow() {
+		console.log(modalStars);
+		for (let s = 0; s < modalStars.length; s++) {
+			let star = modalStars[s];
+			console.log(star);
+			if (current_star_stats > s) star.classList.add("yellow");
+			else star.classList.remove("yellow");
+		}
 		modalWindow.classList.add("open-modal");
 	}
 	function closeModalWindow() {
@@ -46,7 +59,8 @@ window.onload = function () {
 	for (let i = 0; i < levels.length; i++) {
 		let level = levels[i];
 		level.addEventListener("click", (event) => {
-			generate_game(event.currentTarget.getAttribute("data-level"));
+			current_level = event.currentTarget.getAttribute("data-level");
+			generate_game(current_level);
 			let data_level = event.currentTarget.getAttribute("data-level");
 			level_modal.innerText = data_level[0] + " ✖ " + data_level[1];
 			toggle_game();
@@ -81,6 +95,7 @@ window.onload = function () {
 			}, 1000);
 		} else {
 			game.classList.add("hide-block");
+			updateStarStats();
 			levels_container.classList.remove("hide-block");
 			game_toggle = false;
 			clear_game();
@@ -91,9 +106,8 @@ window.onload = function () {
 		let column_size = levels % 10;
 		let row_size = (levels - column_size) / 10;
 		game_container.setAttribute("data-columns", column_size);
-		console.log(row_size, column_size);
-		let size = row_size * column_size;
-		steps_to_finish = size;
+		current_size = row_size * column_size;
+		steps_to_finish = current_size;
 		/* create card template *
 			<div class="card" id="card" data-open="false" data-value="36">
 				<div class="card__front main-font_medium">
@@ -130,13 +144,12 @@ window.onload = function () {
 		let ext = ".png";
 		let img_for_game = [];
 
-		for (let i = 0; i < size / 2; i++) {
+		for (let i = 0; i < current_size / 2; i++) {
 			let random_name = img_names[Math.floor(Math.random() * img_names.length)];
 			img_names.splice(img_names.indexOf(random_name), 1);
 			for (let a = 0; a < 2; a++) {
 				let random_position = Math.floor(Math.random() * img_for_game.length);
 				img_for_game.splice(random_position, 0, random_name);
-				console.log(random_name);
 			}
 		}
 
@@ -192,7 +205,6 @@ window.onload = function () {
 			card.addEventListener("click", () => {
 				let is_active = card.classList.contains("active");
 				if (is_active) return;
-				console.log(card);
 
 				// add class active
 				card.classList.add("active");
@@ -241,7 +253,28 @@ window.onload = function () {
 	}
 
 	function win() {
+		saveStarStatsData();
 		clearInterval(timer);
 		setTimeout(openModalWindow, 1600);
+	}
+
+	function calculate_star() {
+		let the_best_steps = current_size * 2;
+		if (steps <= the_best_steps) current_star_stats = 3;
+		else if (steps <= the_best_steps + the_best_steps / 2) current_star_stats = 2;
+		else current_star_stats = 1;
+	}
+
+	function saveStarStatsData() {
+		let star_stats = JSON.parse(window.localStorage.getItem("star-stats"));
+		if (star_stats === null) star_stats = {};
+		calculate_star();
+		star_stats[current_level] = current_star_stats;
+		window.localStorage.setItem("star-stats", JSON.stringify(star_stats));
+	}
+	
+	function updateStarStats() {
+		let star_stats = JSON.parse(window.localStorage.getItem("star-stats"));
+
 	}
 };
