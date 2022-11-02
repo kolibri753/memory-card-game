@@ -32,6 +32,16 @@ body {
 		font-size: 64px;
 		color: v.$white-color;
 		padding: 0px 30px;
+
+		@include m.respond-to("md") {
+			font-size: 47px;
+			line-height: 33px;
+		}
+	
+		@include m.respond-to("sm") {
+			font-size: 30px;
+			line-height: 33px;
+		}
 	}
 }
 
