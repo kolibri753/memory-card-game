@@ -263,7 +263,7 @@ window.onload = function () {
 	function calculate_star() {
 		let the_best_steps = current_size * 2;
 		if (steps <= the_best_steps) current_star_stats = 3;
-		else if (steps <= the_best_steps + the_best_steps / 2) current_star_stats = 2;
+		else if (steps <= the_best_steps + current_size / 2) current_star_stats = 2;
 		else current_star_stats = 1;
 	}
 
@@ -311,27 +311,18 @@ window.onload = function () {
 			// set level stars
 			let stats = star_stats[data_level];
 			let index_first_star = level_index * 3;
-			if (stats !== undefined) {
+
+			if (stats > 0) {
 				// set first
 				stars[index_first_star].classList.add("yellow");
-				if (stats > 1) {
-					// set second
-					stars[index_first_star + 1].classList.add("yellow");
-					if (stats == 3) {
-						// set third
-						stars[index_first_star + 2].classList.add("yellow");
-					} else {
-						// clear third
-						stars[index_first_star + 2].classList.remove("yellow");
-					}
-				} else {
-					// clear second
-					stars[index_first_star + 1].classList.remove("yellow");
-				}
-			} else {
-				// clear all
-				stars[index_first_star + 1].classList.remove("yellow");
-				stars[index_first_star + 2].classList.remove("yellow");
+
+				// set second
+				if (stats > 1) stars[index_first_star + 1].classList.add("yellow");
+				else stars[index_first_star + 1].classList.remove("yellow");
+
+				// set third
+				if (stats == 3) stars[index_first_star + 2].classList.add("yellow");
+				else stars[index_first_star + 2].classList.remove("yellow");
 			}
 		}
 	}
