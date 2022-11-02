@@ -14,6 +14,8 @@ window.onload = function () {
 	let modalWindow = document.querySelector(".modal-overlay");
 	let modalStars = document.querySelectorAll(".modal__star");
 
+	let stars = document.querySelectorAll(".level .star-icon");
+
 	let card_clicked = [];
 	let steps;
 	let steps_to_finish;
@@ -273,8 +275,66 @@ window.onload = function () {
 		window.localStorage.setItem("star-stats", JSON.stringify(star_stats));
 	}
 	
+	function cleanLocalStorage() {
+		let star_stats = JSON.parse(window.localStorage.getItem("star-stats"));
+
+		let data_level_arr = [];
+		let is_need_update = false;
+
+		// build data_level_arr
+		for(let i = 0; i < levels.length; i++) {
+			let level = levels[i];
+			let data_level = level.getAttribute("data-level");
+			if (data_level != null) data_level_arr.push(data_level);
+		}
+
+		// review local storage
+		for (let level in star_stats) {
+			if(!data_level_arr.includes(level)) {
+				delete star_stats[level];
+				is_need_update = true;
+			} else console.log(1);
+		}
+
+		// update storage if levels is not exist
+		if (is_need_update) {
+			window.localStorage.setItem("star-stats", JSON.stringify(star_stats));
+		}
+	}
+
 	function updateStarStats() {
 		let star_stats = JSON.parse(window.localStorage.getItem("star-stats"));
 
+		for (let level_index = 0; level_index < levels.length; level_index++) {
+			let data_level = levels[level_index].getAttribute("data-level");
+			if (data_level == null) continue;
+			// set level stars
+			let stats = star_stats[data_level];
+			let index_first_star = level_index * 3;
+			if (stats !== undefined) {
+				// set first
+				stars[index_first_star].classList.add("yellow");
+				if (stats > 1) {
+					// set second
+					stars[index_first_star + 1].classList.add("yellow");
+					if (stats == 3) {
+						// set third
+						stars[index_first_star + 2].classList.add("yellow");
+					} else {
+						// clear third
+						stars[index_first_star + 2].classList.remove("yellow");
+					}
+				} else {
+					// clear second
+					stars[index_first_star + 1].classList.remove("yellow");
+				}
+			} else {
+				// clear all
+				stars[index_first_star + 1].classList.remove("yellow");
+				stars[index_first_star + 2].classList.remove("yellow");
+			}
+		}
 	}
+
+	cleanLocalStorage();
 };
