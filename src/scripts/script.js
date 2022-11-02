@@ -242,6 +242,6 @@ window.onload = function () {
 
 	function win() {
 		clearInterval(timer);
-		openModalWindow();
+		setTimeout(openModalWindow, 1600);
 	}
 };
