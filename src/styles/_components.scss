@@ -125,9 +125,10 @@ div.hide-block {
 	padding: 20px 30px;
 
 	@include m.respond-to("md") {
-		flex-direction: column;
+		flex-direction: column-reverse;
 		gap: 20px;
 	}
+
 
 	p {
 		font-size: 36px;
@@ -177,11 +178,16 @@ div.hide-block {
 	// @include m.transition(all 0.3s ease-in-out);
 	// transition-property: color, background-color;
 
+	&.blocked {
+		cursor: not-allowed;
+	}
+
 
 	@include m.respond-to("md") {
-		position: absolute;
-		top: 10px;
-		left: 10px;
+		margin-bottom: 20px;
+	// 	position: absolute;
+	// 	top: 10px;
+	// 	left: 10px;
 	}
 
 	// &:hover {

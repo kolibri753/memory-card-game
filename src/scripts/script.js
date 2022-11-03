@@ -24,6 +24,8 @@ window.onload = function () {
 	let current_size
 	let current_star_stats;
 
+	let is_goback_blocked = false;
+
 	updateStarStats();
 
 	//modal window
@@ -39,6 +41,8 @@ window.onload = function () {
 	}
 	function closeModalWindow() {
 		modalWindow.classList.remove("open-modal");
+		is_goback_blocked = false;
+		button_goback.classList.remove("blocked");
 	}
 	btnModalWindowClose.addEventListener("click", closeModalWindow);
 
@@ -71,6 +75,7 @@ window.onload = function () {
 
 	// go back event
 	button_goback.addEventListener("click", () => {
+		if (is_goback_blocked) return;
 		toggle_game();
 		clear_game();
 	});
@@ -255,6 +260,8 @@ window.onload = function () {
 	}
 
 	function win() {
+		is_goback_blocked = true;
+		button_goback.classList.add("blocked");
 		saveStarStatsData();
 		clearInterval(timer);
 		setTimeout(openModalWindow, 1600);
