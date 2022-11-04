@@ -50,9 +50,10 @@ window.onload = function () {
 	btnModalWindowClose.addEventListener("click", closeModalWindow);
 
 	button_share.addEventListener("click", async () => {
+		let shareText = `Can you beat me at Level ${level_modal.innerText}? I did it only using ${stats_moves[1].innerText} moves and my time is ${stats_time[1].innerText}\n`;
 		let shareData = {
 			title: "Can you beat me?",
-			text: `Can you beat me? I did it only using ${stats_moves[1].innerText} moves and my time is ${stats_time[1].innerText}\n`,
+			text: shareText,
 			url: "https://memory-improving-card-game.netlify.app/",
 		};
 		try {
@@ -62,7 +63,7 @@ window.onload = function () {
 			console.log(err);
 			navigator.clipboard
 				.writeText(
-					`Can you beat me? I did it only using ${stats_moves[1].innerText} moves and my time is ${stats_time[1].innerText}\nhttps://memory-improving-card-game.netlify.app/`
+					`${shareText}https://memory-improving-card-game.netlify.app/`
 				)
 				.then(function () {
 					alert("Coppied to Clipboard");
