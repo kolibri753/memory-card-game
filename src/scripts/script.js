@@ -21,7 +21,7 @@ window.onload = function () {
 	let steps_to_finish;
 	let date;
 	let current_level;
-	let current_size
+	let current_size;
 	let current_star_stats;
 	let current_column_size;
 
@@ -49,20 +49,21 @@ window.onload = function () {
 	}
 	btnModalWindowClose.addEventListener("click", closeModalWindow);
 
-	const shareData = {
-		title: "Can you beat me?",
-		text: `Can you beat me? I did it only using ${stats_moves[1].innerText} moves and my time is ${stats_time[1].innerText}\n`,
-		url: "https://memory-improving-card-game.netlify.app/",
-	};
-	
 	button_share.addEventListener("click", async () => {
+		let shareData = {
+			title: "Can you beat me?",
+			text: `Can you beat me? I did it only using ${stats_moves[1].innerText} moves and my time is ${stats_time[1].innerText}\n`,
+			url: "https://memory-improving-card-game.netlify.app/",
+		};
 		try {
 			await navigator.share(shareData);
 			console.log("MDN shared successfully");
 		} catch (err) {
 			console.log(err);
 			alert("Coppied to Clipboard");
-			navigator.clipboard.writeText(`Can you beat me? I did it only using ${stats_moves[1].innerText} moves and my time is ${stats_time[1].innerText}\nhttps://memory-improving-card-game.netlify.app/`);
+			navigator.clipboard.writeText(
+				`Can you beat me? I did it only using ${stats_moves[1].innerText} moves and my time is ${stats_time[1].innerText}\nhttps://memory-improving-card-game.netlify.app/`
+			);
 		}
 	});
 
@@ -246,17 +247,18 @@ window.onload = function () {
 		// viewport width without vertical scrollbar
 		let base_viewport_width = document.documentElement.clientWidth;
 		const max_width = 1300;
-		base_viewport_width = (base_viewport_width > max_width) ? 1300 : base_viewport_width;
-		let viewport_padding_size = (base_viewport_width > 768) ? 40 : 10;
+		base_viewport_width =
+			base_viewport_width > max_width ? 1300 : base_viewport_width;
+		let viewport_padding_size = base_viewport_width > 768 ? 40 : 10;
 		let viewport_width = base_viewport_width - viewport_padding_size;
 
-		let padding = (viewport_width > 768) ? 10 : 4; 
+		let padding = viewport_width > 768 ? 10 : 4;
 
 		const max_card_width = 210;
 		const max_card_height = 130;
-		let card_width = (viewport_width / current_column_size) - padding;
-		card_width = (card_width > max_card_width) ? max_card_width : card_width;
-		let card_height = max_card_height/max_card_width * card_width;
+		let card_width = viewport_width / current_column_size - padding;
+		card_width = card_width > max_card_width ? max_card_width : card_width;
+		let card_height = (max_card_height / max_card_width) * card_width;
 
 		let new_max_width = card_width * current_column_size + viewport_padding_size;
 		game_container.style.maxWidth = new_max_width + "px";
@@ -320,7 +322,7 @@ window.onload = function () {
 		star_stats[current_level] = current_star_stats;
 		window.localStorage.setItem("star-stats", JSON.stringify(star_stats));
 	}
-	
+
 	function cleanLocalStorage() {
 		let star_stats = JSON.parse(window.localStorage.getItem("star-stats"));
 
@@ -328,7 +330,7 @@ window.onload = function () {
 		let is_need_update = false;
 
 		// build data_level_arr
-		for(let i = 0; i < levels.length; i++) {
+		for (let i = 0; i < levels.length; i++) {
 			let level = levels[i];
 			let data_level = level.getAttribute("data-level");
 			if (data_level != null) data_level_arr.push(data_level);
@@ -336,7 +338,7 @@ window.onload = function () {
 
 		// review local storage
 		for (let level in star_stats) {
-			if(!data_level_arr.includes(level)) {
+			if (!data_level_arr.includes(level)) {
 				delete star_stats[level];
 				is_need_update = true;
 			}
