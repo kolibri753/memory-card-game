@@ -60,10 +60,13 @@ window.onload = function () {
 			console.log("MDN shared successfully");
 		} catch (err) {
 			console.log(err);
-			alert("Coppied to Clipboard");
-			navigator.clipboard.writeText(
-				`Can you beat me? I did it only using ${stats_moves[1].innerText} moves and my time is ${stats_time[1].innerText}\nhttps://memory-improving-card-game.netlify.app/`
-			);
+			navigator.clipboard
+				.writeText(
+					`Can you beat me? I did it only using ${stats_moves[1].innerText} moves and my time is ${stats_time[1].innerText}\nhttps://memory-improving-card-game.netlify.app/`
+				)
+				.then(function () {
+					alert("Coppied to Clipboard");
+				});
 		}
 	});
 
