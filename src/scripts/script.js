@@ -150,7 +150,7 @@ window.onload = function () {
 			"tiger",
 			"zebra",
 		];
-		let base_src = "/img/cards/";
+		let base_src = "/img/cards/animals/128/";
 		let ext = ".png";
 		let img_for_game = [];
 
