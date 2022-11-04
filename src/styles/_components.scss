@@ -79,43 +79,6 @@ div.hide-block {
 	display: none;
 }
 
-[data-columns="2"] {
-	@include m.grid-layout(2);
-}
-
-[data-columns="3"] {
-	@include m.grid-layout(3);
-}
-
-[data-columns="4"] {
-	@include m.grid-layout(4);
-}
-
-[data-columns="5"] {
-	@include m.grid-layout(5);
-}
-
-[data-columns="6"] {
-	@include m.grid-layout(6);
-}
-
-.game {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	height: 100%;
-	justify-content: space-evenly;
-
-	@include m.respond-to("md") {
-		position: relative;
-	}
-
-	&__container {
-		display: grid;
-		padding: 0 20px;
-	}
-}
-
 .panel {
 	display: flex;
 	justify-content: space-between;
@@ -132,6 +95,10 @@ div.hide-block {
 
 	p {
 		font-size: 36px;
+
+		@include m.respond-to("md") {
+			font-size: 24px;
+		}
 	}
 }
 
@@ -145,6 +112,10 @@ div.hide-block {
 
 	@include m.transition(all 0.3s ease-in-out);
 	transition-property: color, background-color;
+
+	@include m.respond-to("md") {
+		font-size: 24px;
+	}
 
 	&:hover {
 		background-color: v.$background-dark-color;
@@ -184,7 +155,7 @@ div.hide-block {
 
 
 	@include m.respond-to("md") {
-		margin-bottom: 20px;
+		margin-bottom: 10px;
 	// 	position: absolute;
 	// 	top: 10px;
 	// 	left: 10px;
@@ -196,10 +167,50 @@ div.hide-block {
 	// }
 }
 
+.game {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 100%;
+	justify-content: space-evenly;
+
+	@include m.respond-to("md") {
+		position: relative;
+	}
+
+	&__container {
+		display: flex;
+		justify-content: center;
+		align-content: center;
+		flex-wrap: wrap;
+		padding: 20px;
+		max-width: 1300px;
+		max-height: 900px;
+		width: 100%;
+		height: 100%;
+
+		@include m.respond-to("md") {
+			padding: 5px;
+		}
+	}
+
+	&__wrapper {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 5px;
+
+		@include m.respond-to("md") {
+			padding: 2px;
+		}
+	}
+}
+
 .card {
-	width: 210px;
-	height: 130px;
-	margin: 10px;
+	max-width: 210px;
+	max-height: 130px;
+	width: 100%;
+	height: 100%;
 	border-radius: 30px;
 	position: relative;
 	transition: transform 0.8s;
@@ -207,6 +218,14 @@ div.hide-block {
 	background-color: v.$background-light-color;
 	cursor: pointer;
 	user-select: none;
+
+	@include m.respond-to("lg") {
+		border-radius: 15px;
+	}
+
+	@include m.respond-to("sm") {
+		border-radius: 8px;
+	}
 
 	&__back,
 	&__front {
@@ -219,12 +238,32 @@ div.hide-block {
 		justify-content: center;
 		align-items: center;
 		padding: 10px;
+
+		@include m.respond-to("md") {
+			padding: 2px;
+		}
 	}
 
 	&__front p {
 		color: v.$white-color;
 		font-size: 96px;
-}
+		
+		@include m.respond-to("xl") {
+			font-size: 64px;
+		}
+
+		@include m.respond-to("lg") {
+			font-size: 52px;
+		}
+
+		@include m.respond-to("md") {
+			font-size: 36px;
+		}
+
+		@include m.respond-to("sm") {
+			font-size: 24px;
+		}
+	}
 
 	&__back {
 		transform: rotateY(180deg);
@@ -232,6 +271,7 @@ div.hide-block {
 
 		img {
 			height: 100%;
+			width: auto;
 		}
 	}
 

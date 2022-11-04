@@ -23,8 +23,11 @@ window.onload = function () {
 	let current_level;
 	let current_size
 	let current_star_stats;
+	let current_column_size;
 
 	let is_goback_blocked = false;
+
+	let cards = [];
 
 	updateStarStats();
 
@@ -110,10 +113,10 @@ window.onload = function () {
 	}
 
 	function generate_game(levels) {
-		let column_size = levels % 10;
-		let row_size = (levels - column_size) / 10;
-		game_container.setAttribute("data-columns", column_size);
-		current_size = row_size * column_size;
+		current_column_size = levels % 10;
+		let row_size = (levels - current_column_size) / 10;
+		game_container.setAttribute("data-columns", current_column_size);
+		current_size = row_size * current_column_size;
 		steps_to_finish = current_size;
 		/* create card template *
 			<div class="card" id="card" data-open="false" data-value="36">
@@ -185,14 +188,20 @@ window.onload = function () {
 			card.appendChild(front);
 			card.appendChild(back);
 
-			// add card
-			game_container.appendChild(card);
+			// add wrapper
+			let wrapper = document.createElement("div");
+			cards.push(wrapper);
+			wrapper.classList.add("game__wrapper");
+			wrapper.appendChild(card);
+			game_container.appendChild(wrapper);
 		}
 
+		configureGrid();
 		add_event_to_card();
 	}
 
 	function clear_game() {
+		cards = [];
 		game_container.innerHTML = "";
 		stats_moves.forEach((element) => {
 			element.innerText = "0";
@@ -230,6 +239,27 @@ window.onload = function () {
 			});
 		}
 	}
+
+	function configureGrid() {
+		// viewport width without vertical scrollbar
+		let viewport_width = document.documentElement.clientWidth;
+		const max_width = 1300;
+		viewport_width = (viewport_width > max_width) ? 1300 : viewport_width;
+		viewport_width -= (viewport_width > 768) ? 40 : 10;
+
+		let padding = (viewport_width > 768) ? 10 : 4; 
+
+		let card_width = (viewport_width / current_column_size) - padding;
+		let card_height = 130/210 * card_width;
+
+		for (let i = 0; i < cards.length; i++) {
+			let card = cards[i];
+			card.style.width = card_width + "px";
+			card.style.height = card_height + "px";
+		}
+	}
+
+	addEventListener("resize", configureGrid);
 
 	function compare_card() {
 		let card1 = card_clicked[0];
@@ -300,7 +330,7 @@ window.onload = function () {
 			if(!data_level_arr.includes(level)) {
 				delete star_stats[level];
 				is_need_update = true;
-			} else console.log(1);
+			}
 		}
 
 		// update storage if levels is not exist

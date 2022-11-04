@@ -24,6 +24,6 @@
   }
 }
 
-@mixin grid-layout($columns){
-  grid-template-columns: repeat($columns, 1fr);
-}
+// @mixin grid-layout($columns){
+//   grid-template-columns: repeat($columns, 1fr);
+// }
