@@ -46,7 +46,7 @@ const paths = {
 
 // Empty dist directory, remove everything except images
 function clean() {
-  return del(['dist/*', '!dist/img'])
+  return del(['dist/*'])
 }
 
 // Html and pug processing
