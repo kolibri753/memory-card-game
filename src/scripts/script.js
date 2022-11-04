@@ -51,16 +51,18 @@ window.onload = function () {
 
 	const shareData = {
 		title: "Can you beat me?",
-		text: `I did it only using ${steps} moves and my time is ${stats_time[0].innerText}`,
+		text: `Can you beat me? I did it only using ${stats_moves[1].innerText} moves and my time is ${stats_time[1].innerText}\n`,
 		url: "https://memory-improving-card-game.netlify.app/",
 	};
-
+	
 	button_share.addEventListener("click", async () => {
 		try {
 			await navigator.share(shareData);
 			console.log("MDN shared successfully");
 		} catch (err) {
 			console.log(err);
+			alert("Coppied to Clipboard");
+			navigator.clipboard.writeText(`Can you beat me? I did it only using ${stats_moves[1].innerText} moves and my time is ${stats_time[1].innerText}\nhttps://memory-improving-card-game.netlify.app/`);
 		}
 	});
 
