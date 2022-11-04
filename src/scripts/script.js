@@ -242,15 +242,22 @@ window.onload = function () {
 
 	function configureGrid() {
 		// viewport width without vertical scrollbar
-		let viewport_width = document.documentElement.clientWidth;
+		let base_viewport_width = document.documentElement.clientWidth;
 		const max_width = 1300;
-		viewport_width = (viewport_width > max_width) ? 1300 : viewport_width;
-		viewport_width -= (viewport_width > 768) ? 40 : 10;
+		base_viewport_width = (base_viewport_width > max_width) ? 1300 : base_viewport_width;
+		let viewport_padding_size = (base_viewport_width > 768) ? 40 : 10;
+		let viewport_width = base_viewport_width - viewport_padding_size;
 
 		let padding = (viewport_width > 768) ? 10 : 4; 
 
+		const max_card_width = 210;
+		const max_card_height = 130;
 		let card_width = (viewport_width / current_column_size) - padding;
-		let card_height = 130/210 * card_width;
+		card_width = (card_width > max_card_width) ? max_card_width : card_width;
+		let card_height = max_card_height/max_card_width * card_width;
+
+		let new_max_width = card_width * current_column_size + viewport_padding_size;
+		game_container.style.maxWidth = new_max_width + "px";
 
 		for (let i = 0; i < cards.length; i++) {
 			let card = cards[i];
@@ -341,6 +348,8 @@ window.onload = function () {
 
 	function updateStarStats() {
 		let star_stats = JSON.parse(window.localStorage.getItem("star-stats"));
+
+		if (star_stats === null) return;
 
 		for (let level_index = 0; level_index < levels.length; level_index++) {
 			let data_level = levels[level_index].getAttribute("data-level");
